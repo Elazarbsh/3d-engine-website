@@ -1,0 +1,21 @@
+.image-gallery {
+    width: 300px; /* Adjust the width as needed */
+    height: 300px; /* Adjust the height as needed */
+    overflow: hidden;
+    border: 1px solid #ccc;
+  }
+  
+  .scrollable-window {
+    display: flex;
+    flex-wrap: wrap; /* Allow images to wrap to the next row */
+    justify-content: space-between; /* Space between images */
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 100%; /* Ensure the content doesn't overflow the container */
+  }
+  
+  .gallery-image {
+    width: 25%; /* Adjust the width and margin as needed */
+    height: 25%; /* Adjust the height as needed */
+    margin-bottom: 10px; /* Adjust margin for spacing between rows */
+    cursor: pointer;
+  }

@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #181818; /* Set your desired background color */
+    padding: 10px; /* Adjust the padding as needed */
+    border: 1px solid grey;
+
+  }
+  
+  .icon {
+    color: #fff; /* Set your desired icon color */
+    margin-right: 10px; /* Adjust the margin between icons as needed */
+    cursor: pointer; /* Add cursor pointer for better interaction */
+  }

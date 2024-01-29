@@ -1,0 +1,17 @@
+.setting{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.scene-settings{
+    display: flex;
+    flex-direction: column;
+}
+
+.light-settings-content{
+    padding-top: 20px;
+    align-self: center;
+    display: flex;
+  }

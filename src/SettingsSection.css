@@ -1,0 +1,27 @@
+.settings-section{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px;
+    background-color: #181818;
+    overflow: hidden;
+    color: white;
+    border-left: 1px solid grey;
+}
+
+  .settings-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease; /* Adjust the transition duration and timing function as needed */
+  }
+  
+  .settings-content.open {
+    max-height: 500px; /* Set an arbitrary value that is greater than or equal to the expected maximum height */
+  }
+
+  .settings-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }

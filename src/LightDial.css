@@ -1,0 +1,17 @@
+.light-dial {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    cursor: grab;
+  }
+  
+  .light-indicator {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: yellow;
+    border-radius: 50%;
+    cursor: grab;
+  }

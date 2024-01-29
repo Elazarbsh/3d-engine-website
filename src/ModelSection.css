@@ -1,0 +1,8 @@
+.models-section{
+    display: flex;
+    flex-direction: column;
+    background-color: #181818;
+    flex: 1;
+    border-right: 1px solid grey;
+}
+
