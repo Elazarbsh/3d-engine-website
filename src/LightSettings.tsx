@@ -89,15 +89,15 @@ const LightSettings: React.FC<LightSettingsProps> = ({ lightSource }) => {
             <svg
                 width="200px"
                 height="200px"
-                onMouseMove={handleMouseMove}
-                onMouseUp={handleMouseUp}
+                onMouseMove={toggleState ? handleMouseMove : undefined}
+                onMouseUp={toggleState ? handleMouseUp : undefined}
             >
                 <circle
                     cx="50%"
                     cy="50%"
                     r="30%"
                     fill="#181818" // Change the color as needed
-                    stroke='#5291f7'
+                    stroke={toggleState ? '#5291f7' : 'grey'}
                     strokeWidth={2}
                 />
                 <circle
@@ -108,13 +108,13 @@ const LightSettings: React.FC<LightSettingsProps> = ({ lightSource }) => {
                     stroke='grey'
                     strokeWidth={2}
                 />
-                <circle className='light-circle'
+                <circle className={toggleState ? 'light-circle-on' : 'light-circle-off'}
                     cx={position.x}
                     cy={position.y}
                     r={10}
-                    fill="white" // Change the color as needed
-                    stroke='white'
-                    onMouseDown={handleMouseDown}
+                    fill={toggleState ? 'white' : 'grey'} // Change the color as needed
+                    stroke={toggleState ? 'white' : 'grey'}
+                    onMouseDown={toggleState ? handleMouseDown : undefined}
                 />
             </svg>
         </div>

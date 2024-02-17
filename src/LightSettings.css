@@ -20,11 +20,16 @@
   align-self: center;
 }
 
-.light-circle{
+.light-circle-on{
   cursor: grab;
   position: absolute;
   user-select: none;
   filter: drop-shadow(0 0 7px rgba(255, 255, 102, 1));
+}
+
+.light-circle-off{
+  position: absolute;
+  user-select: none;
 }
 
 .toggle {

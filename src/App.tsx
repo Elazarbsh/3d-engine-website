@@ -10,7 +10,7 @@ const App: React.FC = () => {
   // const [circleColor, setCircleColor] = useState('#3498db');
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();
-  let sceneBackgroundColor : RGBA = new RGBA(0,90,0);
+  let sceneBackgroundColor : RGBA = new RGBA(170,90,120);
 
   const cam: Camera = new Camera();
   cam.position = new Vec3(0, 1, -5);
