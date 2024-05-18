@@ -1,15 +1,36 @@
 .header {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    background-color: #181818; /* Set your desired background color */
-    padding: 10px; /* Adjust the padding as needed */
-    border: 1px solid grey;
+  display: flex;
+  justify-content: space-between; /* Align title and icons to the edges */
+  align-items: center;
+  background-color: #222831; /* Set your desired background color */
+  /* border-bottom: 1px solid grey; */
+  color: #fff; /* Set text color */
+  padding-left: 100px;
+  padding-right: 100px;
+  height: 10%;
+}
 
-  }
-  
-  .icon {
-    color: #fff; /* Set your desired icon color */
-    margin-right: 10px; /* Adjust the margin between icons as needed */
-    cursor: pointer; /* Add cursor pointer for better interaction */
-  }
+.left-content {
+  display: flex;
+  align-items: center;
+}
+
+.right-content {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.2rem; /* Set your desired font size */
+  margin-right: 10px; /* Adjust margin between title and icons */
+}
+
+.icon {
+  margin-right: 10px; /* Adjust margin between icons */
+  cursor: pointer; /* Add cursor pointer for better interaction */
+}
+
+.icon img {
+  width: 50px; /* Set width of the GitHub icon */
+  height: 50px; /* Set height of the GitHub icon */
+}

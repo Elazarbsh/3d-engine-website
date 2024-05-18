@@ -1,27 +1,60 @@
-.settings-section{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    padding: 20px;
-    background-color: #181818;
-    overflow: hidden;
-    color: white;
-    border-left: 1px solid grey;
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px;
+  background-color: #31363F;
+  overflow: hidden;
+  color: #EEEEEE;
+  /* border-left: 1px solid grey; */
+  user-select: none;
+  transform: translate(0px);
+  transition: transform 1s ease; /* Add ease transition */
+
 }
 
-  .settings-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease; /* Adjust the transition duration and timing function as needed */
-  }
-  
-  .settings-content.open {
-    max-height: 500px; /* Set an arbitrary value that is greater than or equal to the expected maximum height */
-  }
+.settings-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  /* Adjust the transition duration and timing function as needed */
+}
 
-  .settings-title{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-  }
+.settings-content.open {
+  max-height: 500px;
+  /* Set an arbitrary value that is greater than or equal to the expected maximum height */
+}
+
+.settings-content.closed {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.settings-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.settings-section.closed{
+  transform: translate(500px);
+  transition: transform 1s ease; /* Add ease transition */
+}
+
+
+.drawer-toggle-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1;
+  color: white;
+}
+
+.arrow-icon {
+  font-size: 24px;
+}
