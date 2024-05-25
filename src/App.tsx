@@ -24,9 +24,6 @@ const App: React.FC = () => {
   light.direction = new Vec3(0, 0, 1);
 
   const scene: Scene = new Scene(light);
-
-  //const texture = await TextureLoader.loadTextureFromImage("truck.png");
-
   let mesh = Geometry.CUBE;
 
   const material = new Material();
@@ -34,7 +31,6 @@ const App: React.FC = () => {
   material.wireframe = false;
   //material.texture = texture;
 
-  //const mesh: Model = await ModelLoader.loadFromObjectFile('truck.obj');
   mesh.material = material;
   mesh.translation = new Vec3(0, 0, 0);
 
@@ -48,11 +44,12 @@ const App: React.FC = () => {
     let prevTime = 0; // Variable to store the previous timestamp
     let fps = 0; // Variable to store FPS
     let lastUpdate = performance.now(); // Store timestamp of the last update
+    
 
     // animationFrameRef.current = requestAnimationFrame(updatePosition);
     const initRender = async () => {
 
-      const renderer: Renderer = new Renderer(canvasRef.current!);
+      let renderer: Renderer = new Renderer(canvasRef.current!);
       renderer.backgroundColor = sceneBackgroundColor;
 
       controls.canvas = canvasRef.current!
@@ -62,6 +59,7 @@ const App: React.FC = () => {
         controls?.update();
         renderer.render(scene, cam);
         animationFrameRef.current = requestAnimationFrame(animate);
+        renderer.enableRasterizationViaCanvasApi = true;
 
         const deltaTime = currentTime - prevTime; // Calculate time difference
         prevTime = currentTime; // Update previous timestamp
@@ -105,8 +103,13 @@ const App: React.FC = () => {
           canvas.width = parentDiv.clientWidth;
           canvas.height = parentDiv.clientHeight;
           console.log(`resizing to ${canvas.width} ${canvas.height}`)
-          renderer.screenHeight = canvas.height;
-          renderer.screenWidth = canvas.width;
+          // renderer.screenHeight = canvas.height;
+          // renderer.screenWidth = canvas.width;
+          const backgroundColor = renderer.backgroundColor;
+          const enableApiDrawing = renderer.enableRasterizationViaCanvasApi;
+          renderer.canvas = canvas;
+          renderer.backgroundColor = backgroundColor;
+          renderer.enableRasterizationViaCanvasApi = enableApiDrawing;
         }
       };
       window.addEventListener('resize', resizeHandler);

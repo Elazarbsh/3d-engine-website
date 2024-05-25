@@ -1,8 +1,13 @@
 .models-section{
     display: flex;
     flex-direction: column;
+    flex: 2;
+    padding: 20px;
     background-color: #31363F;
-    flex: 1;
-    /* border-right: 1px solid grey; */
+    overflow: hidden;
+    color: #EEEEEE;
+    /* border-left: 1px solid grey; */
+    user-select: none;
+    transform: translate(0px);
+    transition: transform 1s ease; /* Add ease transition */
 }
-

@@ -9,7 +9,7 @@
   overflow: hidden;
 }
 
-.settings-section {
+.samples-section {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -19,7 +19,6 @@
   /* border: 1px solid grey; */
   user-select: none;
 }
-
 
 .section-title {
   display: flex;
@@ -54,6 +53,8 @@
   cursor: pointer;
   border-radius: 0px;
   margin-top: 10px;
+  margin-left: 1px;
+  margin-right: 1px;
   transition: filter 0.3s ease;
 }
 

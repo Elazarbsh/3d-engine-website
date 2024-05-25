@@ -37,6 +37,9 @@ const SettingsSection: React.FC<SettingsProps> = ({ material, light, sceneBackgr
   return (
     
     <div className={`settings-section ${isOpen ? 'open' : 'closed'}`}>
+      {/* <button className="drawer-toggle-button" onClick={toggleDrawer}>
+        <FontAwesomeIcon icon={isOpen ? faChevronRight : faChevronLeft} className="arrow-icon" />
+      </button> */}
       <div className='settings-title' onClick={toggleMaterial}>
         <h4>Material Settings</h4>
         <FontAwesomeIcon icon={isMaterialOpen ? faChevronUp : faChevronDown} />

@@ -67,7 +67,7 @@ const ExampleModels: React.FC<PreviewModelsProps> = ({ scene, controls, mesh, ma
 
 
   return (
-    <div className='settings-section'>
+    <div className='samples-section'>
       <div className='section-title' onClick={toggleModelPreview}>
         <h4>Sample Models</h4>
         <FontAwesomeIcon icon={isPreviewModelsOpen ? faChevronUp : faChevronDown} />

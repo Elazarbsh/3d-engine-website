@@ -1,7 +1,7 @@
 .settings-section {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 2;
   padding: 20px;
   background-color: #31363F;
   overflow: hidden;
@@ -10,25 +10,25 @@
   user-select: none;
   transform: translate(0px);
   transition: transform 1s ease; /* Add ease transition */
-
 }
 
 .settings-content {
   max-height: 0;
+  opacity: 0;
   overflow: hidden;
-  transition: max-height 0.5s ease;
-  /* Adjust the transition duration and timing function as needed */
+  transition: max-height 0.5s ease, opacity 0.5s ease;
 }
 
 .settings-content.open {
   max-height: 500px;
-  /* Set an arbitrary value that is greater than or equal to the expected maximum height */
+  overflow: hidden;
+  opacity: 1;
 }
 
-.settings-content.closed {
+/* .settings-content.closed {
   max-height: 0;
   overflow: hidden;
-}
+} */
 
 .settings-title {
   display: flex;
@@ -38,7 +38,7 @@
 }
 
 .settings-section.closed{
-  transform: translate(500px);
+  transform: translate(80%);
   transition: transform 1s ease; /* Add ease transition */
 }
 
