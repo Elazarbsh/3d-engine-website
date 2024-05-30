@@ -73,7 +73,7 @@
   
   /* Styling for the slider when the checkbox is checked (ON state) */
   input:checked + .slider {
-    background-color: #5291f7; /* ON state background color */
+    background-color: #76ABAE; /* ON state background color */
   }
   
   /* Styling for the slider when the checkbox is checked (ON state) */

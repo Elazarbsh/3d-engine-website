@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react'
 import './App.css'
-import { Vec3, Camera, Light, Renderer, Scene, RGBA, Material, Geometry, TransformControls, ModelLoader } from "ts-3d-engine";
+import { Vec3, Camera, Light, Renderer, Scene, RGBA, Material, Geometry, TransformControls, ModelLoader, Model } from "ts-3d-engine";
 import SettingsSection from './SettingsSection';
 import ModelSection from './ModelSection';
 import TopSection from './TopSection';
-import { render } from 'react-dom';
+import MyWorker from './AnimationWorker?worker';
 
 const App: React.FC = () => {
   // const [circleColor, setCircleColor] = useState('#3498db');
@@ -14,135 +14,98 @@ const App: React.FC = () => {
   const showFPSRef = useRef(true);
   //const [isFpsActive, setFpsActive] = useState(true);
 
-
   let sceneBackgroundColor: RGBA = new RGBA(60, 60, 60);
 
-  const cam: Camera = new Camera();
-  cam.position = new Vec3(0, 0, -5);
+  const camRef = useRef<Camera>(new Camera());
+  camRef.current.position = new Vec3(0, 0, -5);
 
-  const light: Light = new Light();
-  light.direction = new Vec3(0, 0, 1);
+  const lightRef = useRef<Light>(new Light());
+  lightRef.current.direction = new Vec3(0, 0, 1);
 
-  const scene: Scene = new Scene(light);
-  let mesh = Geometry.CUBE;
+  const materialRef = useRef<Material>(new Material());
+  materialRef.current.color = new RGBA(255, 255, 255);
+  materialRef.current.wireframe = false;
 
-  const material = new Material();
-  material.color = new RGBA(255, 255, 255);
-  material.wireframe = false;
-  //material.texture = texture;
+  let meshRef = useRef<Model>(Geometry.CUBE);
+  meshRef.current.material = materialRef.current;
+  meshRef.current.translation = new Vec3(0, 0, 0);
 
-  mesh.material = material;
-  mesh.translation = new Vec3(0, 0, 0);
+  const placeHolderCanvas = document.createElement('canvas');
+  let controls = new TransformControls(meshRef.current, camRef.current, placeHolderCanvas);
 
-  const newCanvas = document.createElement('canvas');
-  let controls = new TransformControls(mesh, cam, newCanvas);
-
-
-  scene.addModel(mesh);
+  const sceneRef = useRef<Scene>(new Scene(lightRef.current));
+  sceneRef.current.addModel(meshRef.current);
 
   useEffect(() => {
+
+    //const offscreenCanvas = canvasRef.current.transferControlToOffscreen();
+    //const worker = new MyWorker();
+    //worker.postMessage({message:"hi"}, []);
+
     let prevTime = 0; // Variable to store the previous timestamp
     let fps = 0; // Variable to store FPS
     let lastUpdate = performance.now(); // Store timestamp of the last update
-    
 
-    // animationFrameRef.current = requestAnimationFrame(updatePosition);
-    const initRender = async () => {
+    let renderer: Renderer = new Renderer(canvasRef.current!);
+    renderer.backgroundColor = sceneBackgroundColor;
+    controls.canvas = canvasRef.current!
+    controls.enableControls();
 
-      let renderer: Renderer = new Renderer(canvasRef.current!);
-      renderer.backgroundColor = sceneBackgroundColor;
+    function animate(currentTime: number) {
+      controls?.update();
+      renderer.render(sceneRef.current, camRef.current);
+      animationFrameRef.current = requestAnimationFrame(animate);
+      renderer.enableRasterizationViaCanvasApi = true;
 
-      controls.canvas = canvasRef.current!
-      controls.enableControls();
+      const deltaTime = currentTime - prevTime; // Calculate time difference
+      prevTime = currentTime; // Update previous timestamp
 
-      function animate(currentTime: number) {
-        controls?.update();
-        renderer.render(scene, cam);
-        animationFrameRef.current = requestAnimationFrame(animate);
-        renderer.enableRasterizationViaCanvasApi = true;
-
-        const deltaTime = currentTime - prevTime; // Calculate time difference
-        prevTime = currentTime; // Update previous timestamp
-
-        const lastUpdateTime = currentTime - lastUpdate;
-        if (lastUpdateTime >= 1000) {
-          fps = Math.round(1000 / deltaTime);
-          lastUpdate = currentTime;
-        }
-
-        // Calculate FPS
-        // Update FPS in console
-        const ctx = canvasRef.current!.getContext('2d');
-        if (ctx && showFPSRef.current) {
-          console.log(showFPSRef.current)
-          ctx.fillStyle = 'white';
-          ctx.font = 'bold 16px Arial'; // Use a bold font with larger size
-          ctx.fillText(`${fps}`, 10, 20); // Display current FPS
-        }
+      const lastUpdateTime = currentTime - lastUpdate;
+      if (lastUpdateTime >= 1000) {
+        fps = Math.round(1000 / deltaTime);
+        lastUpdate = currentTime;
       }
 
-      animationFrameRef.current = requestAnimationFrame(animate);
-
-      // TODO move out of useeffect
-      const canvas = canvasRef.current!;
-      const parentDiv = canvas.parentElement!;
+      // Calculate FPS
       const ctx = canvasRef.current!.getContext('2d');
-
-      canvas.width = parentDiv.clientWidth;
-      canvas.height = parentDiv.clientHeight;
-  
-      console.log("width " + canvasRef.current!.width);
-      console.log("height " + canvasRef.current!.height);
-
-      const resizeHandler = () => {
-        console.log("resize")
-        const canvas = canvasRef.current;
-        const parentDiv = canvas?.parentElement;
-        if (canvas && parentDiv) {
-          console.log("yes")
-          canvas.width = parentDiv.clientWidth;
-          canvas.height = parentDiv.clientHeight;
-          console.log(`resizing to ${canvas.width} ${canvas.height}`)
-          // renderer.screenHeight = canvas.height;
-          // renderer.screenWidth = canvas.width;
-          const backgroundColor = renderer.backgroundColor;
-          const enableApiDrawing = renderer.enableRasterizationViaCanvasApi;
-          renderer.canvas = canvas;
-          renderer.backgroundColor = backgroundColor;
-          renderer.enableRasterizationViaCanvasApi = enableApiDrawing;
-        }
-      };
-      window.addEventListener('resize', resizeHandler);
-
+      if (ctx && showFPSRef.current) {
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 16px Arial';
+        ctx.fillText(`${fps}`, 10, 20);
+      }
     }
 
-    initRender();
+    animationFrameRef.current = requestAnimationFrame(animate);
 
-    // canvasRef.current!.style.width = "100%";
-    // canvasRef.current!.style.height = "100%";
-    // canvasRef.current!.width = canvasRef.current!.offsetWidth;
-    // canvasRef.current!.height = canvasRef.current!.offsetHeight;
+    const resizeHandler = () => {
+      const canvas = canvasRef.current;
+      const parentDiv = canvas?.parentElement;
+      if (canvas && parentDiv) {
+        canvas.width = parentDiv.clientWidth;
+        canvas.height = parentDiv.clientHeight;
+        const backgroundColor = renderer.backgroundColor;
+        const enableApiDrawing = renderer.enableRasterizationViaCanvasApi;
+        renderer.canvas = canvas;
+        renderer.backgroundColor = backgroundColor;
+        renderer.enableRasterizationViaCanvasApi = enableApiDrawing;
+      }
+    };
+    
+    resizeHandler();
+    window.addEventListener('resize', resizeHandler);
 
-
-  
 
     return () => {
       cancelAnimationFrame(animationFrameRef.current!);
     };
 
-
-
-
   }, []);
-
-
 
 
   const handleDownloadImage = () => {
     const canvas = canvasRef.current;
     const filename = 'canvas_image.png';
 
-    // Ensure the canvas element is available
     if (canvas) {
       // Convert the canvas content to a data URL
       const dataURL = canvas.toDataURL('image/png');
@@ -180,11 +143,11 @@ const App: React.FC = () => {
       const file = event.target.files[0];
       if (file) {
         try {
-          mesh = await ModelLoader.loadFromObjectFileAsync(file);
-          mesh.material = material;
-          controls!.model = mesh;
-          scene.clearModels();
-          scene.addModel(mesh);
+          meshRef.current = await ModelLoader.loadFromObjectFileAsync(file);
+          meshRef.current.material = materialRef.current;
+          controls!.model = meshRef.current;
+          sceneRef.current.clearModels();
+          sceneRef.current.addModel(meshRef.current);
         } catch (error) {
           console.error("Error parsing the file:", error);
         }
@@ -197,7 +160,7 @@ const App: React.FC = () => {
     <>
       <TopSection></TopSection>
       <div className='main-app'>
-        <ModelSection scene={scene} controls={controls} mesh={mesh} material={material} camera={cam}></ModelSection>
+        <ModelSection scene={sceneRef.current} controls={controls} mesh={meshRef.current} material={materialRef.current} camera={camRef.current}></ModelSection>
         <div className="canvas-container">
           <div className="canvas-menu">
             <input
@@ -222,7 +185,7 @@ const App: React.FC = () => {
             <canvas ref={canvasRef} width={window.innerWidth} height={200} className='canvas' />
           </div>
         </div>
-        <SettingsSection material={material} light={light} sceneBackgroundColor={sceneBackgroundColor}></SettingsSection>
+        <SettingsSection material={materialRef.current} light={lightRef.current} sceneBackgroundColor={sceneBackgroundColor}></SettingsSection>
       </div>
     </>);
 };

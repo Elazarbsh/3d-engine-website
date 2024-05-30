@@ -15,10 +15,7 @@ const LightSettings: React.FC<LightSettingsProps> = ({ lightSource }) => {
 
     const calculatePositionFromDirection = (direction: Vec3): Position => {
         // Assuming the length of the direction vector is used to scale
-        const bigCircleCenter = {x: 100, y:100};
-
-        console.log("dir: " + direction.x + " " + direction.y + " " + direction.z + " " +"length: "+ length);
-    
+        const bigCircleCenter = {x: 100, y:100};    
         const x = bigCircleCenter.x - direction.x * (115 / 2); // 200 is the SVG width
         const y = bigCircleCenter.y + direction.z * (115 / 2); // 200 is the SVG height
         return { x, y };
@@ -97,7 +94,7 @@ const LightSettings: React.FC<LightSettingsProps> = ({ lightSource }) => {
                     cy="50%"
                     r="30%"
                     fill="#181818" // Change the color as needed
-                    stroke={toggleState ? '#5291f7' : 'grey'}
+                    stroke={toggleState ? '#76ABAE' : 'grey'}
                     strokeWidth={2}
                 />
                 <circle
