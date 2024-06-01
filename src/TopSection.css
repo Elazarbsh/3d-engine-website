@@ -1,36 +1,38 @@
 .header {
   display: flex;
-  justify-content: space-between; /* Align title and icons to the edges */
+  justify-content: space-between;
   align-items: center;
-  background-color: #222831; /* Set your desired background color */
-  /* border-bottom: 1px solid grey; */
-  color: #fff; /* Set text color */
-  padding-left: 100px;
-  padding-right: 100px;
+  background-color: #222831;
+  color: #EEEEEE;
+  padding-left: 7%;
+  padding-right: 7%;
   height: 10%;
 }
 
-.left-content {
+.website-logo {
   display: flex;
   align-items: center;
+  height: 100%;
+  justify-content: space-between;
 }
 
-.right-content {
+.github-logo {
   display: flex;
-  align-items: center;
+  height: 100%;
 }
 
-.title {
-  font-size: 1.2rem; /* Set your desired font size */
-  margin-right: 10px; /* Adjust margin between title and icons */
+.website-logo-title {
+  font-size: 1.0rem;
+  margin-left: 10px;
 }
 
 .icon {
-  margin-right: 10px; /* Adjust margin between icons */
-  cursor: pointer; /* Add cursor pointer for better interaction */
+  cursor: pointer;
+  height: 100%;
+  align-content: center;
 }
 
 .icon img {
-  width: 50px; /* Set width of the GitHub icon */
-  height: 50px; /* Set height of the GitHub icon */
+  width: auto;
+  height: 60%;
 }

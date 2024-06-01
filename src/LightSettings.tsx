@@ -11,19 +11,25 @@ interface LightSettingsProps {
     lightSource: Light; // Assuming LightSource is the class you want to pass
 }
 
-const LightSettings: React.FC<LightSettingsProps> = ({ lightSource }) => {
 
-    const calculatePositionFromDirection = (direction: Vec3): Position => {
-        // Assuming the length of the direction vector is used to scale
-        const bigCircleCenter = {x: 100, y:100};    
-        const x = bigCircleCenter.x - direction.x * (115 / 2); // 200 is the SVG width
-        const y = bigCircleCenter.y + direction.z * (115 / 2); // 200 is the SVG height
-        return { x, y };
-        };
-    
+const calculateDirectionVector = (lightCircle: Position, OuterCircleCenter: Position): Vec3 => {
+    const deltaX = OuterCircleCenter.x - lightCircle.x;
+    const deltaZ = OuterCircleCenter.y - lightCircle.y;
+    const length = Math.sqrt(deltaX ** 2 + deltaZ ** 2);
+    return new Vec3(deltaX / length, 0, -deltaZ / length);
+};
+
+const calculateLightCirclePositionFromDirection = (direction: Vec3): Position => {
+    const OuterCircleCenter = { x: 80, y: 80 };
+    const x = OuterCircleCenter.x - direction.x * (46);
+    const y = OuterCircleCenter.y + direction.z * (46);
+    return { x, y };
+};
+
+const LightSettings: React.FC<LightSettingsProps> = ({ lightSource }) => {
     const [dragging, setDragging] = useState(false);
-    const [position, setPosition] = useState<Position>(calculatePositionFromDirection(lightSource.direction));
-    const [toggleState, setToggleState] = useState(lightSource.isEnabled);
+    const [position, setPosition] = useState<Position>(calculateLightCirclePositionFromDirection(lightSource.direction));
+    const [isLightEnabled, setIsLightEnabled] = useState(lightSource.isEnabled);
 
     const handleMouseDown = (e: MouseEvent<SVGCircleElement>) => {
         e.preventDefault();
@@ -35,29 +41,15 @@ const LightSettings: React.FC<LightSettingsProps> = ({ lightSource }) => {
     };
 
     const handleToggleChange = () => {
-        let newToggleState = !toggleState;
-        setToggleState(newToggleState);
-    
-        // Perform actions based on the toggle state
+        let newToggleState = !isLightEnabled;
+        setIsLightEnabled(newToggleState);
+
         if (newToggleState) {
-          // Do something when the toggle is turned ON
-          console.log('Toggle is ON');
-          lightSource.isEnabled = true;
+            lightSource.isEnabled = true;
         } else {
-          // Do something when the toggle is turned OFF
-          console.log('Toggle is OFF');
-          lightSource.isEnabled = false;
+            lightSource.isEnabled = false;
         }
-      };
-
-    const calculateDirectionVector = (smallCircle: Position, bigCircleCenter: Position): Vec3 => {
-        const deltaX = bigCircleCenter.x - smallCircle.x;
-        const deltaZ = bigCircleCenter.y - smallCircle.y;
-        const length = Math.sqrt(deltaX ** 2 + deltaZ ** 2);
-        return new Vec3(deltaX / length, 0, -deltaZ / length);
     };
-
-
 
     const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
         if (dragging) {
@@ -79,39 +71,31 @@ const LightSettings: React.FC<LightSettingsProps> = ({ lightSource }) => {
 
     return (
         <div className="light-settings">
-            <label className= "toggle">
-                <input type="checkbox" checked={lightSource.isEnabled} onChange={handleToggleChange}/>
+            <label className="toggle">
+                <input type="checkbox" checked={lightSource.isEnabled} onChange={handleToggleChange} />
                 <div className="slider"></div>
             </label>
             <svg
-                width="200px"
-                height="200px"
-                onMouseMove={toggleState ? handleMouseMove : undefined}
-                onMouseUp={toggleState ? handleMouseUp : undefined}
+                width="160px"
+                height="160px"
+                onMouseMove={isLightEnabled ? handleMouseMove : undefined}
+                onMouseUp={isLightEnabled ? handleMouseUp : undefined}
             >
-                <circle
+                <circle className={`${isLightEnabled ? 'outer-circle-on' : 'outer-circle-off'}`}
                     cx="50%"
                     cy="50%"
                     r="30%"
-                    fill="#181818" // Change the color as needed
-                    stroke={toggleState ? '#76ABAE' : 'grey'}
-                    strokeWidth={2}
                 />
-                <circle
+                <circle className='inner-circle'
                     cx="50%"
                     cy="50%"
                     r="10%"
-                    fill="grey" // Change the color as needed
-                    stroke='grey'
-                    strokeWidth={2}
                 />
-                <circle className={toggleState ? 'light-circle-on' : 'light-circle-off'}
+                <circle className={isLightEnabled ? 'light-circle-on' : 'light-circle-off'}
                     cx={position.x}
                     cy={position.y}
-                    r={10}
-                    fill={toggleState ? 'white' : 'grey'} // Change the color as needed
-                    stroke={toggleState ? 'white' : 'grey'}
-                    onMouseDown={toggleState ? handleMouseDown : undefined}
+                    r="6%"
+                    onMouseDown={isLightEnabled ? handleMouseDown : undefined}
                 />
             </svg>
         </div>

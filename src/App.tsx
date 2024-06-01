@@ -6,6 +6,10 @@ import ModelSection from './ModelSection';
 import TopSection from './TopSection';
 import MyWorker from './AnimationWorker?worker';
 
+import UploadIcon from "./assets/icons/upload.svg";
+import CameraIcon from "./assets/icons/camera.svg";
+import FpsIcon from "./assets/icons/fps.svg";
+
 const App: React.FC = () => {
   // const [circleColor, setCircleColor] = useState('#3498db');
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -83,11 +87,7 @@ const App: React.FC = () => {
       if (canvas && parentDiv) {
         canvas.width = parentDiv.clientWidth;
         canvas.height = parentDiv.clientHeight;
-        const backgroundColor = renderer.backgroundColor;
-        const enableApiDrawing = renderer.enableRasterizationViaCanvasApi;
         renderer.canvas = canvas;
-        renderer.backgroundColor = backgroundColor;
-        renderer.enableRasterizationViaCanvasApi = enableApiDrawing;
       }
     };
     
@@ -107,19 +107,15 @@ const App: React.FC = () => {
     const filename = 'canvas_image.png';
 
     if (canvas) {
-      // Convert the canvas content to a data URL
       const dataURL = canvas.toDataURL('image/png');
 
-      // Create a link element
       const link = document.createElement('a');
       link.href = dataURL;
       link.download = filename;
 
-      // Trigger the download
       document.body.appendChild(link);
       link.click();
 
-      // Clean up
       document.body.removeChild(link);
     }
   };
@@ -131,15 +127,11 @@ const App: React.FC = () => {
   };
 
   const handleUploadFile = () => {
-    // Trigger the click event on the file input element
-    console.log("upload clicked")
     fileInputRef.current!.click();
   };
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("change fired")
     if (event.target instanceof HTMLInputElement && event.target.files) {
-      console.log("condition true")
       const file = event.target.files[0];
       if (file) {
         try {
@@ -171,18 +163,18 @@ const App: React.FC = () => {
               onChange={handleFileChange}
             />
             <button className='canvas-menu-button' onClick={handleUploadFile} title='Upload Model'>
-              <img src="src/assets/icons/upload.svg" height={20} width={20} />
+              <img src={UploadIcon} className='canvas-menu-button-icon' />
             </button>
             <button className='canvas-menu-button' onClick={handleDownloadImage} title='Snapshot'>
-              <img src="src/assets/icons/camera.svg" height={20} width={20} />
+              <img src={CameraIcon} className='canvas-menu-button-icon' />
             </button>
             <button className={`canvas-menu-button ${showFPSRef.current ? '' : 'fps-inactive'}`} onClick={toggleFPS} title='Toggle FPS'>
-              <img src="src/assets/icons/fps.svg" height={20} width={20} />
+              <img src={FpsIcon} className='canvas-menu-button-icon' />
             </button>
 
           </div>
           <div className='canvas-div'>
-            <canvas ref={canvasRef} width={window.innerWidth} height={200} className='canvas' />
+            <canvas ref={canvasRef} width={200} height={200} />
           </div>
         </div>
         <SettingsSection material={materialRef.current} light={lightRef.current} sceneBackgroundColor={sceneBackgroundColor}></SettingsSection>

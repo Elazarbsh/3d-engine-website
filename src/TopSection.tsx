@@ -11,13 +11,13 @@ const Header: React.FC = () => {
 
   return (
     <div className="header">
-      <div className="left-content">
+      <div className="website-logo">
         <div className="icon">
           <img src={cubeIcon} alt="GitHub" />
         </div>
-        <span className="title">Online OBJ Viewer</span>
+        <span className="website-logo-title">Online OBJ Viewer</span>
       </div>
-      <div className="right-content">
+      <div className="github-logo">
         <div className="icon" onClick={handleGithubClick}>
           <img src={githubIcon} alt="GitHub" />
         </div>

@@ -2,33 +2,28 @@
   display: flex;
   flex-direction: column;
   flex: 2;
-  padding: 20px;
+  padding: 1%;
   background-color: #31363F;
   overflow: hidden;
   color: #EEEEEE;
-  /* border-left: 1px solid grey; */
   user-select: none;
-  transform: translate(0px);
-  transition: transform 1s ease; /* Add ease transition */
+  /* transform: translate(0px); */
+  /* transition: transform 1s ease; */
 }
 
 .settings-content {
+  max-height: 100%;
+  overflow: hidden;
+  opacity: 1;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.settings-content.closed {
   max-height: 0;
   opacity: 0;
   overflow: hidden;
   transition: max-height 0.5s ease, opacity 0.5s ease;
 }
-
-.settings-content.open {
-  max-height: 500px;
-  overflow: hidden;
-  opacity: 1;
-}
-
-/* .settings-content.closed {
-  max-height: 0;
-  overflow: hidden;
-} */
 
 .settings-title {
   display: flex;
@@ -37,13 +32,17 @@
   cursor: pointer;
 }
 
-.settings-section.closed{
+/* .settings-content.closed {
+  max-height: 0;
+  overflow: hidden;
+} */
+
+/* .settings-section.closed{
   transform: translate(80%);
-  transition: transform 1s ease; /* Add ease transition */
-}
+  transition: transform 1s ease;
+} */
 
-
-.drawer-toggle-button {
+/* .drawer-toggle-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -53,8 +52,8 @@
   padding: 0;
   z-index: 1;
   color: white;
-}
+} */
 
-.arrow-icon {
+/* .arrow-icon {
   font-size: 24px;
-}
+} */

@@ -3,25 +3,28 @@
     flex-direction: column;
 }
 
-.setting{
+.material-setting{
     display: flex;
     justify-content: space-between;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 
-.setting input[type="color"] {
-  /* Customize the appearance as needed */
-  width: 60px; /* Set the desired width */
-  height: 30px; /* Set the desired height */
+.material-setting > label {
+  align-content: center;
+  font-size: 1rem;
+  color: #bbbbbb;
+}
+
+.material-setting input[type="color"] {
+  width: 60px;
+  height: 25px;
   border: none;
-  border-radius: 5px; /* Adjust as needed for rounded corners */
+  border-radius: 3px;
   outline: none;
-  cursor: pointer; /* Show pointer cursor on hover */
+  cursor: pointer;
 }
 
-/* Additional styles for the color input when focused */
-.setting input[type="color"]:focus {
-  border-color: #2196F3; /* Set the border color when focused */
-  box-shadow: 0 0 5px rgba(33, 150, 243, 0.5); /* Add a subtle shadow when focused */
+.material-setting input[type="checkbox"] {
+  accent-color: #76ABAE;
 }

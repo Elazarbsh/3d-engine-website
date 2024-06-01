@@ -1,17 +1,26 @@
-.setting{
-    display: flex;
-    justify-content: space-between;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.scene-settings{
+.scene-settings {
     display: flex;
     flex-direction: column;
 }
 
-.light-settings-content{
-    padding-top: 20px;
-    align-self: center;
+.scene-setting {
     display: flex;
-  }
+    justify-content: space-between;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.scene-settings label {
+    align-content: center;
+    font-size: 1rem;
+    color: #bbbbbb;
+}
+
+.scene-setting input[type="color"] {
+    width: 60px;
+    height: 25px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}

@@ -6,6 +6,13 @@ interface MaterialSettingsProps {
   material: Material
 }
 
+function hexToRgba(hexColor : string){
+  const red = parseInt(hexColor.slice(1, 3), 16);
+  const green = parseInt(hexColor.slice(3, 5), 16);
+  const blue = parseInt(hexColor.slice(5, 7), 16);
+  return new RGBA(red, green, blue);
+}
+
 const MaterialSettings: React.FC<MaterialSettingsProps> = ({ material }) => {
   const [meshColor, setMeshColor] = useState(material.color.toHex());
   const [wireframeColor, setWireframeColor] = useState(material.wireframeColor.toHex());
@@ -14,43 +21,35 @@ const MaterialSettings: React.FC<MaterialSettingsProps> = ({ material }) => {
 
   return (
     <div className='material-settings'>
-      
-      <div className='setting'>
+      <div className='material-setting'>
         <label htmlFor="meshColorPicker">Mesh Color:</label>
         <input
           type="color"
           id="meshColorPicker"
           value={meshColor}
           onChange={(e) => {
-            setMeshColor(e.target.value);
-            let color = e.target.value;
-            const red = parseInt(color.slice(1, 3), 16);
-            const green = parseInt(color.slice(3, 5), 16);
-            const blue = parseInt(color.slice(5, 7), 16);
-            material.color = new RGBA(red, green, blue);
-            console.log(material.color.toHex());
+            const color = e.target.value;
+            setMeshColor(color);
+            material.color = hexToRgba(color);
           }}
         />
       </div>
 
-      <div className='setting'>
+      <div className='material-setting'>
         <label htmlFor="wireframeColorPicker">Wireframe Color:</label>
         <input
           type="color"
           id="wireframeColorPicker"
           value={wireframeColor}
           onChange={(e) => {
-            setWireframeColor(e.target.value);
-            let color = e.target.value;
-            const red = parseInt(color.slice(1, 3), 16);
-            const green = parseInt(color.slice(3, 5), 16);
-            const blue = parseInt(color.slice(5, 7), 16);
-            material.wireframeColor = new RGBA(red, green, blue);
+            const color = e.target.value;
+            setWireframeColor(color);
+            material.wireframeColor = hexToRgba(color);
           }}
         />
       </div>
 
-      <div className='setting'>
+      <div className='material-setting'>
         <label htmlFor="showWireframe">Wireframe:</label>
         <input
           type="checkbox"

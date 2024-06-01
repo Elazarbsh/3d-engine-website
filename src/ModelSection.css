@@ -1,13 +1,32 @@
-.models-section{
+.models-section {
     display: flex;
     flex-direction: column;
     flex: 2;
-    padding: 20px;
+    padding: 1%;
     background-color: #31363F;
     overflow: hidden;
     color: #EEEEEE;
-    /* border-left: 1px solid grey; */
     user-select: none;
-    transform: translate(0px);
-    transition: transform 1s ease; /* Add ease transition */
+}
+
+.preview-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.preview-content {
+    max-height: 100%;
+    overflow: hidden;
+    opacity: 1;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    height: 90%;
+}
+
+.preview-content.closed {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
 }
