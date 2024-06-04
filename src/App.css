@@ -57,3 +57,9 @@ body {
 .canvas-menu-button:hover{
   background-color: #76ABAE;
 }
+
+@media (max-width: 900px) and (orientation: portrait) {
+  .canvas-container {
+    margin-right: 0px;
+  }
+}

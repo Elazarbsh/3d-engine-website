@@ -90,7 +90,7 @@ const App: React.FC = () => {
         renderer.canvas = canvas;
       }
     };
-    
+
     resizeHandler();
     window.addEventListener('resize', resizeHandler);
 
@@ -171,7 +171,6 @@ const App: React.FC = () => {
             <button className={`canvas-menu-button ${showFPSRef.current ? '' : 'fps-inactive'}`} onClick={toggleFPS} title='Toggle FPS'>
               <img src={FpsIcon} className='canvas-menu-button-icon' />
             </button>
-
           </div>
           <div className='canvas-div'>
             <canvas ref={canvasRef} width={200} height={200} />

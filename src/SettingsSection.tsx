@@ -40,7 +40,7 @@ const SettingsSection: React.FC<SettingsProps> = ({ material, light, sceneBackgr
         <FontAwesomeIcon icon={isOpen ? faChevronRight : faChevronLeft} className="arrow-icon" />
       </button> */}
       <div className='settings-title' onClick={toggleMaterialSettingsOpen}>
-        <h4>Material Settings</h4>
+        <h4>Material</h4>
         <FontAwesomeIcon icon={isMaterialOpen ? faChevronUp : faChevronDown} />
       </div>
       <div className={`settings-content ${isMaterialOpen ? '' : 'closed'}`}>
@@ -48,7 +48,7 @@ const SettingsSection: React.FC<SettingsProps> = ({ material, light, sceneBackgr
       </div>
 
       <div className='settings-title' onClick={toggleSceneSettingsOpen}>
-        <h4>Scene Settings</h4>
+        <h4>Scene</h4>
         <FontAwesomeIcon icon={isLightOpen ? faChevronUp : faChevronDown} />
       </div>
       <div className={`settings-content ${isLightOpen ? '' : 'closed'}`}>

@@ -32,6 +32,13 @@
   cursor: pointer;
 }
 
+@media (max-width: 900px) and (orientation: portrait) {
+  .settings-section {
+    max-width: 0;
+    padding: 0px;
+  }
+}
+
 /* .settings-content.closed {
   max-height: 0;
   overflow: hidden;
