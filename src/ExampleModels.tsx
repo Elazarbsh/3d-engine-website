@@ -4,8 +4,8 @@ import PreviewItem from './PreviewItem';
 import './ExampleModels.css'
 
 
-const IMAGE_BASE_PATH = '/src/assets/preview-images';
-const MODEL_BASE_PATH = '/src/assets/preview-models';
+const IMAGE_BASE_PATH = `${import.meta.env.BASE_URL}/preview-images`;
+const MODEL_BASE_PATH = `${import.meta.env.BASE_URL}/preview-models`;
 
 interface PreviewModelsProps {
   scene: Scene;
@@ -14,8 +14,6 @@ interface PreviewModelsProps {
   material: Material;
   camera: Camera;
 }
-
-
 
 const ExampleModels: React.FC<PreviewModelsProps> = ({ scene, controls, material, camera }) => {
 
