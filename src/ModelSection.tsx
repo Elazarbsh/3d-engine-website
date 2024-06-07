@@ -1,7 +1,7 @@
-import { Material, Light, Model, Scene, TransformControls, Camera } from 'ts-3d-engine';
+import { Material, Model, Scene, TransformControls, Camera } from 'ts-3d-engine';
 import './ModelSection.css'
 import ExampleModels from './ExampleModels';
-import { faChevronDown, faChevronUp, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 

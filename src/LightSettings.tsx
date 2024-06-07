@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent, useRef } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { Light, Vec3 } from "ts-3d-engine";
 import './LightSettings.css'
 

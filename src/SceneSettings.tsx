@@ -1,4 +1,4 @@
-import { Light, RGBA, Renderer } from "ts-3d-engine";
+import { Light, RGBA } from "ts-3d-engine";
 import LightSettings from "./LightSettings";
 import { useState } from "react";
 import './SceneSettings.css';
