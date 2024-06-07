@@ -34,7 +34,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #aaa;
   transition: .4s;
   border-radius: 34px;
 }
@@ -60,13 +60,13 @@ input:checked+.slider:before {
 }
 
 .inner-circle{
-  fill: grey;
+  fill: #aaa;
   stroke-width: 0;
 }
 
 .outer-circle-off{
   fill: #31363F;
-  stroke: grey;
+  stroke: #aaa;
   stroke-width: 2;
 }
 
@@ -88,6 +88,12 @@ input:checked+.slider:before {
 .light-circle-off {
   position: absolute;
   user-select: none;
-  fill: grey;
-  stroke: grey;
+  fill: #aaa;
+  stroke: #aaa;
+}
+
+@media (max-width: 900px) {
+  .light-settings {
+    border: 0px;
+  }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import './TopSection.css'; // Import your CSS file for styling
 import githubIcon from './assets/icons/github.svg'; // Import the GitHub icon
-import cubeIcon from './assets/icons/cube4.svg';
+import cubeIcon from './assets/icons/cube.svg';
 
 const Header: React.FC = () => {
   const handleGithubClick = () => {

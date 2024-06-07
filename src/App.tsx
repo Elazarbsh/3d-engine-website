@@ -1,22 +1,19 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import './App.css'
 import { Vec3, Camera, Light, Renderer, Scene, RGBA, Material, Geometry, TransformControls, ModelLoader, Model } from "ts-3d-engine";
 import SettingsSection from './SettingsSection';
 import ModelSection from './ModelSection';
 import TopSection from './TopSection';
-import MyWorker from './AnimationWorker?worker';
 
 import UploadIcon from "./assets/icons/upload.svg";
 import CameraIcon from "./assets/icons/camera.svg";
 import FpsIcon from "./assets/icons/fps.svg";
 
 const App: React.FC = () => {
-  // const [circleColor, setCircleColor] = useState('#3498db');
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const showFPSRef = useRef(true);
-  //const [isFpsActive, setFpsActive] = useState(true);
 
   let sceneBackgroundColor: RGBA = new RGBA(60, 60, 60);
 
@@ -28,13 +25,17 @@ const App: React.FC = () => {
 
   const materialRef = useRef<Material>(new Material());
   materialRef.current.color = new RGBA(255, 255, 255);
-  materialRef.current.wireframe = false;
 
   let meshRef = useRef<Model>(Geometry.CUBE);
   meshRef.current.material = materialRef.current;
   meshRef.current.translation = new Vec3(0, 0, 0);
 
   const placeHolderCanvas = document.createElement('canvas');
+  let renderer: Renderer = new Renderer(placeHolderCanvas);
+  renderer.enableRasterizationViaCanvasApi = false;
+  renderer.enableTextureMapping = true;
+  renderer.backgroundColor = sceneBackgroundColor;
+
   let controls = new TransformControls(meshRef.current, camRef.current, placeHolderCanvas);
 
   const sceneRef = useRef<Scene>(new Scene(lightRef.current));
@@ -42,16 +43,12 @@ const App: React.FC = () => {
 
   useEffect(() => {
 
-    //const offscreenCanvas = canvasRef.current.transferControlToOffscreen();
-    //const worker = new MyWorker();
-    //worker.postMessage({message:"hi"}, []);
-
     let prevTime = 0; // Variable to store the previous timestamp
     let fps = 0; // Variable to store FPS
     let lastUpdate = performance.now(); // Store timestamp of the last update
 
-    let renderer: Renderer = new Renderer(canvasRef.current!);
-    renderer.backgroundColor = sceneBackgroundColor;
+    renderer.canvas = canvasRef.current!;
+
     controls.canvas = canvasRef.current!
     controls.enableControls();
 
@@ -59,7 +56,6 @@ const App: React.FC = () => {
       controls?.update();
       renderer.render(sceneRef.current, camRef.current);
       animationFrameRef.current = requestAnimationFrame(animate);
-      renderer.enableRasterizationViaCanvasApi = true;
 
       const deltaTime = currentTime - prevTime; // Calculate time difference
       prevTime = currentTime; // Update previous timestamp
@@ -176,7 +172,7 @@ const App: React.FC = () => {
             <canvas ref={canvasRef} width={200} height={200} />
           </div>
         </div>
-        <SettingsSection material={materialRef.current} light={lightRef.current} sceneBackgroundColor={sceneBackgroundColor}></SettingsSection>
+        <SettingsSection material={materialRef.current} light={lightRef.current} sceneBackgroundColor={sceneBackgroundColor} renderer={renderer}></SettingsSection>
       </div>
     </>);
 };

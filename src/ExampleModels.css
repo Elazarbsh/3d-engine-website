@@ -12,7 +12,7 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   overflow-y: auto;
-  max-height: 90%;
+  max-height: 100%;
   align-items: center;
   margin: auto;
   align-content: flex-start;

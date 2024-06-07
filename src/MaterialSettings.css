@@ -28,3 +28,23 @@
 .material-setting input[type="checkbox"] {
   accent-color: #76ABAE;
 }
+
+.material-setting img.texture-preview {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.material-setting .texture-placeholder {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e0e0e0;
+  color: #888888;
+  font-weight: bold;
+  border: 1px solid #cccccc;
+  cursor: pointer;
+}
