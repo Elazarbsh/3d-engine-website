@@ -13,9 +13,8 @@ interface PreviewSectionProps {
     camera: Camera,
 }
 
-
 const ModelSection: React.FC<PreviewSectionProps> = ({ scene, controls, mesh, material, camera }) => {
-    const [isPreviewModelsOpen, setExampleModelsPreviewModelsOpen] = useState(true);
+    const [isPreviewModelsOpen, setExampleModelsPreviewModelsOpen] = useState(false);
 
     const toggleExamplesModelPreview = () => {
         setExampleModelsPreviewModelsOpen(!isPreviewModelsOpen);

@@ -3,7 +3,6 @@ import { Camera, Material, Model, Scene, TransformControls, Vec3 } from 'ts-3d-e
 import PreviewItem from './PreviewItem';
 import './ExampleModels.css'
 
-
 const IMAGE_BASE_PATH = `${import.meta.env.BASE_URL}/preview-images`;
 const MODEL_BASE_PATH = `${import.meta.env.BASE_URL}/preview-models`;
 
